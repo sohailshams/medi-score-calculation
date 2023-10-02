@@ -1,4 +1,4 @@
-const { AirOrOxygen } = require("./Enums");
+const { AirOrOxygen, Consciousness } = require("./Enums");
 
 function getAirOrOxygenScore(airOrOxygenInput) {
   switch (airOrOxygenInput) {
@@ -11,4 +11,15 @@ function getAirOrOxygenScore(airOrOxygenInput) {
   }
 }
 
-module.exports = { getAirOrOxygenScore };
+function getConsciousnessScore(consciousnessInput) {
+  switch (consciousnessInput) {
+    case Consciousness.ALERT:
+      return consciousnessInput;
+    case Consciousness.CVPU:
+      return consciousnessInput;
+    default:
+      return null;
+  }
+}
+
+module.exports = { getAirOrOxygenScore, getConsciousnessScore };

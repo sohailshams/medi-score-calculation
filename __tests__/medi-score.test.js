@@ -1,5 +1,5 @@
 const { mediScoreCalculation } = require("../medi-score/mediScore");
-const { AirOrOxygen } = require("../medi-score/Enums");
+const { AirOrOxygen, Consciousness } = require("../medi-score/Enums");
 
 describe("mediScoreCalculation test suite", () => {
   it("returns a message if passed an empty object", () => {
@@ -20,7 +20,7 @@ describe("mediScoreCalculation test suite", () => {
     // Create obervations object
     const observations = {
       airOrOxygen: "something",
-      consciousness: 0,
+      consciousness: Consciousness.ALERT,
       respirationRange: 17,
       spo: 95,
       temperature: 37.1,
@@ -50,7 +50,41 @@ describe("mediScoreCalculation test suite", () => {
       spo: 0,
       temperature: 0,
     };
-
     expect(mediScoreCalculation(observations)).toBe(2);
+  });
+  it("returns a message if passed incorrect consciousness input", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: "something",
+      respirationRange: 17,
+      spo: 95,
+      temperature: 37.1,
+    };
+    expect(mediScoreCalculation(observations)).toBe(
+      "Please choose correct data either alert or CVPU"
+    );
+  });
+  it("getConsciousnessScore returns correct score if the patient is conscious", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 0,
+      spo: 0,
+      temperature: 0,
+    };
+    expect(mediScoreCalculation(observations)).toBe(0);
+  });
+  it("getConsciousnessScore returns correct score if the patient is unconscious", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.CVPU,
+      respirationRange: 0,
+      spo: 0,
+      temperature: 0,
+    };
+    expect(mediScoreCalculation(observations)).toBe(3);
   });
 });

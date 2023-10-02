@@ -1,4 +1,4 @@
-const { getAirOrOxygenScore } = require("./helpers");
+const { getAirOrOxygenScore, getConsciousnessScore } = require("./helpers");
 
 function mediScoreCalculation(observationsObject) {
   // Check if observations is an empty object & retrun an error message
@@ -23,15 +23,20 @@ function mediScoreCalculation(observationsObject) {
   let total = 0;
 
   // Destructuring observatoins properties
-  const { airOrOxygen } = observationsObject;
+  const { airOrOxygen, consciousness } = observationsObject;
 
   // Get air or oxygen score or return an error message
   const airOrOxygenScore = getAirOrOxygenScore(airOrOxygen);
   if (airOrOxygenScore === null)
     return "Please choose correct data either air or oxygen";
 
+  // Get consciousness score or return an error message
+  const consciousnessScore = getConsciousnessScore(consciousness);
+  if (consciousnessScore === null)
+    return "Please choose correct data either alert or CVPU";
+
   // Final medi score
-  total += airOrOxygenScore;
+  total += airOrOxygenScore + consciousnessScore;
 
   return total;
 }
