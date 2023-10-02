@@ -16,6 +16,65 @@ describe("mediScoreCalculation test suite", () => {
       "Please pass correct input!"
     );
   });
+
+  // Patient 1 observations
+  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 95,
+      temperature: 37.1,
+    };
+
+    expect(mediScoreCalculation(observations)).toBe(0);
+  });
+
+  // Patient 2 observations
+  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+    };
+
+    expect(mediScoreCalculation(observations)).toBe(4);
+  });
+
+  // Patient 3 observations
+  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.CVPU,
+      respirationRange: 23,
+      spO2: 88,
+      temperature: 38.5,
+    };
+
+    expect(mediScoreCalculation(observations)).toBe(8);
+  });
+
+  // Patient 4 observations
+  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.CVPU,
+      respirationRange: 5,
+      spO2: 98,
+      temperature: 35.0,
+    };
+
+    expect(mediScoreCalculation(observations)).toBe(14);
+  });
+});
+
+describe("mediScoreCalculation - getAirOrOxygenScore test suite", () => {
   it("returns a message if passed incorrect air or oxygen input", () => {
     // Create obervations object
     const observations = {
@@ -52,6 +111,9 @@ describe("mediScoreCalculation test suite", () => {
     };
     expect(mediScoreCalculation(observations)).toBe(2);
   });
+});
+
+describe("mediScoreCalculation - getConsciousnessScore test suite", () => {
   it("returns a message if passed incorrect consciousness input", () => {
     // Create obervations object
     const observations = {
@@ -87,6 +149,9 @@ describe("mediScoreCalculation test suite", () => {
     };
     expect(mediScoreCalculation(observations)).toBe(3);
   });
+});
+
+describe("mediScoreCalculation - getRespirationRangeScore test suite", () => {
   it("returns a message if passed incorrect Respiration range input", () => {
     // Create obervations object
     const observations = {
@@ -219,6 +284,9 @@ describe("mediScoreCalculation test suite", () => {
     expect(mediScoreCalculation(observationsEqual25)).toBe(3);
     expect(mediScoreCalculation(observationsGreaterThan25)).toBe(3);
   });
+});
+
+describe("mediScoreCalculation - getSpO2Score test suite", () => {
   it("returns a message if passed incorrect spO2 input", () => {
     // Create obervations object
     const observations = {
@@ -392,6 +460,9 @@ describe("mediScoreCalculation test suite", () => {
     expect(mediScoreCalculation(observationsEqual97Oxygen)).toBe(5);
     expect(mediScoreCalculation(observationsGreater97Oxygen)).toBe(5);
   });
+});
+
+describe("mediScoreCalculation - getTemperatureScore test suite", () => {
   it("returns a message if passed incorrect temperature input", () => {
     // Create obervations object
     const observations = {
