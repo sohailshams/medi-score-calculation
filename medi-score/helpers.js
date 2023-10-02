@@ -22,7 +22,7 @@ function getConsciousnessScore(consciousnessInput) {
   }
 }
 
-function getrespirationRangeScore(respirationRangeInput) {
+function getRespirationRangeScore(respirationRangeInput) {
   switch (true) {
     case respirationRangeInput <= 8:
       return 3;
@@ -39,8 +39,32 @@ function getrespirationRangeScore(respirationRangeInput) {
   }
 }
 
+function getSpO2Score(spoScoreInput, airOrOxygenInput) {
+  switch (true) {
+    case spoScoreInput <= 83 ||
+      (spoScoreInput >= 97 && airOrOxygenInput === AirOrOxygen.OXYGEN):
+      return 3;
+    case (spoScoreInput >= 84 && spoScoreInput <= 85) ||
+      (spoScoreInput >= 95 &&
+        spoScoreInput <= 96 &&
+        airOrOxygenInput === AirOrOxygen.OXYGEN):
+      return 2;
+    case (spoScoreInput >= 86 && spoScoreInput <= 87) ||
+      (spoScoreInput >= 93 &&
+        spoScoreInput <= 94 &&
+        airOrOxygenInput === AirOrOxygen.OXYGEN):
+      return 1;
+    case (spoScoreInput >= 88 && spoScoreInput <= 92) ||
+      (spoScoreInput >= 93 && airOrOxygenInput === AirOrOxygen.AIR):
+      return 0;
+    default:
+      return null;
+  }
+}
+
 module.exports = {
   getAirOrOxygenScore,
   getConsciousnessScore,
-  getrespirationRangeScore,
+  getRespirationRangeScore,
+  getSpO2Score,
 };
