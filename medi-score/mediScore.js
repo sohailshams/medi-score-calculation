@@ -3,6 +3,7 @@ const {
   getConsciousnessScore,
   getRespirationRangeScore,
   getSpO2Score,
+  getTemperatureScore,
 } = require("./helpers");
 
 function mediScoreCalculation(observationsObject) {
@@ -28,7 +29,7 @@ function mediScoreCalculation(observationsObject) {
   let total = 0;
 
   // Destructuring observatoins properties
-  const { airOrOxygen, consciousness, respirationRange, spO2 } =
+  const { airOrOxygen, consciousness, respirationRange, spO2, temperature } =
     observationsObject;
 
   // Get air or oxygen score or return an error message
@@ -49,9 +50,17 @@ function mediScoreCalculation(observationsObject) {
   const spO2Score = getSpO2Score(spO2, airOrOxygen);
   if (spO2Score === null) return "Please choose an integer value";
 
+  // Get temperature score or return an error message
+  const temperatureScore = getTemperatureScore(temperature);
+  if (temperatureScore === null) return "Please add correct temperature value";
+
   // Final medi score
   total +=
-    airOrOxygenScore + consciousnessScore + respirationRangeScore + spO2Score;
+    airOrOxygenScore +
+    consciousnessScore +
+    respirationRangeScore +
+    spO2Score +
+    temperatureScore;
 
   return total;
 }

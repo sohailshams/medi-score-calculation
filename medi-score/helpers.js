@@ -62,9 +62,31 @@ function getSpO2Score(spoScoreInput, airOrOxygenInput) {
   }
 }
 
+function getTemperatureScore(temperatureScoreInput) {
+  // Check if temperature is a number
+  if (typeof temperatureScoreInput != "number") return null;
+
+  // Rounded to a single decimal place
+  temperatureScoreInput = temperatureScoreInput.toFixed(1);
+  switch (true) {
+    case temperatureScoreInput <= 35.0:
+      return 3;
+    case (temperatureScoreInput >= 35.1 && temperatureScoreInput <= 36.0) ||
+      (temperatureScoreInput >= 38.1 && temperatureScoreInput <= 39.0):
+      return 1;
+    case temperatureScoreInput >= 36.1 && temperatureScoreInput <= 38.0:
+      return 0;
+    case temperatureScoreInput >= 39.1:
+      return 2;
+    default:
+      return null;
+  }
+}
+
 module.exports = {
   getAirOrOxygenScore,
   getConsciousnessScore,
   getRespirationRangeScore,
   getSpO2Score,
+  getTemperatureScore,
 };

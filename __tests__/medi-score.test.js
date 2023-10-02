@@ -36,7 +36,7 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: 0,
       respirationRange: 12,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
 
     expect(mediScoreCalculation(observations)).toBe(0);
@@ -48,7 +48,7 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: 0,
       respirationRange: 12,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observations)).toBe(2);
   });
@@ -72,7 +72,7 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: 12,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observations)).toBe(0);
   });
@@ -83,7 +83,7 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.CVPU,
       respirationRange: 12,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observations)).toBe(3);
   });
@@ -107,14 +107,14 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: -1,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationEqual8 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 8,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observationsLessThan8)).toBe(3);
     expect(mediScoreCalculation(observationEqual8)).toBe(3);
@@ -126,21 +126,21 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: 9,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual10 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 10,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual11 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 11,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observationsEqual9)).toBe(1);
     expect(mediScoreCalculation(observationsEqual10)).toBe(1);
@@ -153,21 +153,21 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: 12,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual16 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 16,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual20 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 20,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observationsEqual12)).toBe(0);
     expect(mediScoreCalculation(observationsEqual16)).toBe(0);
@@ -180,21 +180,21 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: 21,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual23 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 23,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsEqual24 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 24,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observationsEqual21)).toBe(2);
     expect(mediScoreCalculation(observationsEqual23)).toBe(2);
@@ -207,14 +207,14 @@ describe("mediScoreCalculation test suite", () => {
       consciousness: Consciousness.ALERT,
       respirationRange: 25,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     const observationsGreaterThan25 = {
       airOrOxygen: AirOrOxygen.AIR,
       consciousness: Consciousness.ALERT,
       respirationRange: 30,
       spO2: 90,
-      temperature: 0,
+      temperature: 36.1,
     };
     expect(mediScoreCalculation(observationsEqual25)).toBe(3);
     expect(mediScoreCalculation(observationsGreaterThan25)).toBe(3);
@@ -391,5 +391,137 @@ describe("mediScoreCalculation test suite", () => {
     // Note total is 5 because when we pass patient on oxygen then we get score 2 from getAirOrOxygenScore + 3 from spO2Score
     expect(mediScoreCalculation(observationsEqual97Oxygen)).toBe(5);
     expect(mediScoreCalculation(observationsGreater97Oxygen)).toBe(5);
+  });
+  it("returns a message if passed incorrect temperature input", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: "somthing",
+    };
+    expect(mediScoreCalculation(observations)).toBe(
+      "Please add correct temperature value"
+    );
+  });
+  it("getTemperatureScore returns correct score if temperature observation is <=35.0", () => {
+    // Create obervations objects
+    const observationsLessThan35 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 34,
+    };
+    const observationsEqual35 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 35.0,
+    };
+    expect(mediScoreCalculation(observationsLessThan35)).toBe(3);
+    expect(mediScoreCalculation(observationsEqual35)).toBe(3);
+  });
+  it("getTemperatureScore returns correct score if temperature observation is >=35.1 and <=36.0", () => {
+    // Create obervations objects
+    const observationsEqual351 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 35.1,
+    };
+    const observationsEqual355 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 35.5,
+    };
+    const observationsEqual36 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 36.0,
+    };
+    expect(mediScoreCalculation(observationsEqual351)).toBe(1);
+    expect(mediScoreCalculation(observationsEqual355)).toBe(1);
+    expect(mediScoreCalculation(observationsEqual36)).toBe(1);
+  });
+  it("getTemperatureScore returns correct score if temperature observation is >=36.1 and <=38.0", () => {
+    // Create obervations objects
+    const observationsEqual361 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 36.1,
+    };
+    const observationsEqual37 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 37,
+    };
+    const observationsEqual38 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 38.0,
+    };
+    expect(mediScoreCalculation(observationsEqual361)).toBe(0);
+    expect(mediScoreCalculation(observationsEqual37)).toBe(0);
+    expect(mediScoreCalculation(observationsEqual38)).toBe(0);
+  });
+  it("getTemperatureScore returns correct score if temperature observation is >=38.1 and <=39.0", () => {
+    // Create obervations objects
+    const observationsEqual381 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 38.1,
+    };
+    const observationsEqual385 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 38.5,
+    };
+    const observationsEqual39 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 39.0,
+    };
+    expect(mediScoreCalculation(observationsEqual381)).toBe(1);
+    expect(mediScoreCalculation(observationsEqual385)).toBe(1);
+    expect(mediScoreCalculation(observationsEqual39)).toBe(1);
+  });
+  it("getTemperatureScore returns correct score if temperature observation is >=39.1", () => {
+    // Create obervations objects
+    const observationsEqual391 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 39.1,
+    };
+    const observationsEqual40 = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 90,
+      temperature: 40.0,
+    };
+    expect(mediScoreCalculation(observationsEqual391)).toBe(2);
+    expect(mediScoreCalculation(observationsEqual40)).toBe(2);
   });
 });
