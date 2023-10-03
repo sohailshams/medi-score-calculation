@@ -1,9 +1,11 @@
 import "./App.css";
+import Nav from "./components/Nav";
+import Test from "./components/Test";
 
 function App() {
   return (
     <>
-      <h1>Medi Score Calculation</h1>
+      <Nav />
     </>
   );
 }
