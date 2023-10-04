@@ -1,11 +1,12 @@
 import "./App.css";
 import Nav from "./components/Nav";
-import Test from "./components/Test";
+import ObservationsForm from "./components/ObservationsForm";
 
 function App() {
   return (
     <>
       <Nav />
+      <ObservationsForm />
     </>
   );
 }
