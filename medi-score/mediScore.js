@@ -1,12 +1,12 @@
-const {
+import {
   getAirOrOxygenScore,
   getConsciousnessScore,
   getRespirationRangeScore,
   getSpO2Score,
   getTemperatureScore,
-} = require("./helpers");
+} from "./helpers";
 
-function mediScoreCalculation(observationsObject) {
+export function mediScoreCalculation(observationsObject) {
   // Check if observations is an empty object & retrun an error message
   if (!Object.keys(observationsObject).length)
     return "Please pass correct input!";
@@ -64,5 +64,3 @@ function mediScoreCalculation(observationsObject) {
 
   return total;
 }
-
-module.exports = { mediScoreCalculation };

@@ -1,6 +1,6 @@
-const { AirOrOxygen, Consciousness } = require("./Enums");
+import { AirOrOxygen, Consciousness } from "./Enums";
 
-function getAirOrOxygenScore(airOrOxygenInput) {
+export function getAirOrOxygenScore(airOrOxygenInput) {
   switch (airOrOxygenInput) {
     case AirOrOxygen.AIR:
       return airOrOxygenInput;
@@ -11,7 +11,7 @@ function getAirOrOxygenScore(airOrOxygenInput) {
   }
 }
 
-function getConsciousnessScore(consciousnessInput) {
+export function getConsciousnessScore(consciousnessInput) {
   switch (consciousnessInput) {
     case Consciousness.ALERT:
       return consciousnessInput;
@@ -22,7 +22,7 @@ function getConsciousnessScore(consciousnessInput) {
   }
 }
 
-function getRespirationRangeScore(respirationRangeInput) {
+export function getRespirationRangeScore(respirationRangeInput) {
   switch (true) {
     case respirationRangeInput <= 8:
       return 3;
@@ -39,7 +39,7 @@ function getRespirationRangeScore(respirationRangeInput) {
   }
 }
 
-function getSpO2Score(spoScoreInput, airOrOxygenInput) {
+export function getSpO2Score(spoScoreInput, airOrOxygenInput) {
   switch (true) {
     case spoScoreInput <= 83 ||
       (spoScoreInput >= 97 && airOrOxygenInput === AirOrOxygen.OXYGEN):
@@ -62,7 +62,7 @@ function getSpO2Score(spoScoreInput, airOrOxygenInput) {
   }
 }
 
-function getTemperatureScore(temperatureScoreInput) {
+export function getTemperatureScore(temperatureScoreInput) {
   // Check if temperature is a number
   if (typeof temperatureScoreInput != "number") return null;
 
@@ -83,10 +83,10 @@ function getTemperatureScore(temperatureScoreInput) {
   }
 }
 
-module.exports = {
-  getAirOrOxygenScore,
-  getConsciousnessScore,
-  getRespirationRangeScore,
-  getSpO2Score,
-  getTemperatureScore,
-};
+// module.exports = {
+//   getAirOrOxygenScore,
+//   getConsciousnessScore,
+//   getRespirationRangeScore,
+//   getSpO2Score,
+//   getTemperatureScore,
+// };

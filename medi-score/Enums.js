@@ -1,11 +1,9 @@
-const AirOrOxygen = {
+export const AirOrOxygen = {
   AIR: 0,
   OXYGEN: 2,
 };
 
-const Consciousness = {
+export const Consciousness = {
   ALERT: 0,
   CVPU: 3,
 };
-
-module.exports = { AirOrOxygen, Consciousness };

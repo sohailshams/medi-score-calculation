@@ -1,5 +1,5 @@
-const { mediScoreCalculation } = require("../medi-score/mediScore");
-const { AirOrOxygen, Consciousness } = require("../medi-score/Enums");
+import { mediScoreCalculation } from "../medi-score/mediScore";
+import { AirOrOxygen, Consciousness } from "../medi-score/Enums";
 
 describe("mediScoreCalculation test suite", () => {
   it("returns a message if passed an empty object", () => {
