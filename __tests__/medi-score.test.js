@@ -599,8 +599,8 @@ describe("mediScoreCalculation - getTemperatureScore test suite", () => {
   });
 });
 
-describe.only("alertChecker test suite", () => {
-  it.only("returns false", () => {
+describe("alertChecker test suite", () => {
+  it("returns false", () => {
     // Create obervations object
     const observations = {
       airOrOxygen: AirOrOxygen.AIR,
@@ -611,5 +611,69 @@ describe.only("alertChecker test suite", () => {
     };
     const mediScore = mediScoreCalculation(observations);
     expect(alertChecker(mediScore, mediScoreData)).toBe(false);
+  });
+  it("returns false if medi score did not raise by more than 2 - single reading in 24 hours", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 95,
+      temperature: 37.1,
+    };
+    // Single reading medi score data
+    const mediScoreDataSingle = [
+      {
+        id: 1,
+        time: "06:00",
+        mediScore: 0,
+      },
+    ];
+    const mediScore = mediScoreCalculation(observations);
+    expect(alertChecker(mediScore, mediScoreDataSingle)).toBe(false);
+  });
+  it("returns true if medi score raised by more than 2 - single reading in 24 hours", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+    };
+    // Single reading medi score data
+    const mediScoreDataSingle = [
+      {
+        id: 1,
+        time: "06:00",
+        mediScore: 0,
+      },
+    ];
+    const mediScore = mediScoreCalculation(observations);
+    expect(alertChecker(mediScore, mediScoreDataSingle)).toBe(true);
+  });
+  it("returns false if medi score did not raise by more than 2 - multiple readings 24 hours", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 95,
+      temperature: 37.1,
+    };
+    const mediScore = mediScoreCalculation(observations);
+    expect(alertChecker(mediScore, mediScoreData)).toBe(false);
+  });
+  it("returns true if medi score raised by more than 2 - multiple readings 24 hours", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+    };
+    const mediScore = mediScoreCalculation(observations);
+    expect(alertChecker(mediScore, mediScoreData)).toBe(true);
   });
 });
