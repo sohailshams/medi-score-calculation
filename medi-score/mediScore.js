@@ -44,11 +44,12 @@ export function mediScoreCalculation(observationsObject) {
 
   // Get respiration range score or return an error message
   const respirationRangeScore = getRespirationRangeScore(respirationRange);
-  if (respirationRangeScore === null) return "Please choose an integer value";
+  if (respirationRangeScore === null)
+    return "Please choose an integer value for Respiration rate";
 
   // Get SpO2 score or return an error message
   const spO2Score = getSpO2Score(spO2, airOrOxygen);
-  if (spO2Score === null) return "Please choose an integer value";
+  if (spO2Score === null) return "Please choose an integer value for spO2";
 
   // Get temperature score or return an error message
   const temperatureScore = getTemperatureScore(temperature);
