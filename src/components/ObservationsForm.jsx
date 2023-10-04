@@ -161,7 +161,9 @@ function ObservationsForm() {
           type="submit"
           value="Get Medi Score"
         />
-        <h1 className="text-center text-red-900 font-bold">{scoreOrMsg}</h1>
+        <h1 className="text-center text-red-900 font-extrabold text-lg">
+          {scoreOrMsg}
+        </h1>
       </form>
     </div>
   );
