@@ -91,6 +91,19 @@ function ObservationsForm() {
     // Get medi score
     const result = mediScoreCalculation(patientObservations);
     setScoreOrMsg(result);
+
+    // Re-setting input fields values
+    if (typeof result === "number") {
+      setPatientObservations({
+        airOrOxygen: "",
+        consciousness: "",
+        respirationRange: "",
+        spO2: "",
+        temperature: "",
+      });
+      setAODropDownTitle("Chose One Value");
+      setACDropDownTitle("Chose One Value");
+    }
   };
 
   return (
