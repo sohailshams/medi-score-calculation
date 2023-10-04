@@ -162,7 +162,7 @@ describe("mediScoreCalculation - getRespirationRangeScore test suite", () => {
       temperature: 37.1,
     };
     expect(mediScoreCalculation(observations)).toBe(
-      "Please choose an integer value"
+      "Please choose an integer value for Respiration rate"
     );
   });
   it("getRespirationRangeScore returns correct score if respiration range observation is <=8", () => {
@@ -297,7 +297,7 @@ describe("mediScoreCalculation - getSpO2Score test suite", () => {
       temperature: 36.1,
     };
     expect(mediScoreCalculation(observations)).toBe(
-      "Please choose an integer value"
+      "Please choose an integer value for spO2"
     );
   });
   it("getSpO2Score returns correct score if spO2 observation is <=83", () => {
