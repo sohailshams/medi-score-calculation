@@ -1,5 +1,7 @@
 import { mediScoreCalculation } from "../medi-score/mediScore";
 import { AirOrOxygen, Consciousness } from "../medi-score/Enums";
+import { alertChecker } from "../medi-score/alertChecker";
+import { mediScoreData } from "../data/patientTestData";
 
 describe("mediScoreCalculation test suite", () => {
   it("returns a message if passed an empty object", () => {
@@ -594,5 +596,20 @@ describe("mediScoreCalculation - getTemperatureScore test suite", () => {
     };
     expect(mediScoreCalculation(observationsEqual391)).toBe(2);
     expect(mediScoreCalculation(observationsEqual40)).toBe(2);
+  });
+});
+
+describe.only("alertChecker test suite", () => {
+  it.only("returns false", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.AIR,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 15,
+      spO2: 95,
+      temperature: 37.1,
+    };
+    const mediScore = mediScoreCalculation(observations);
+    expect(alertChecker(mediScore, mediScoreData)).toBe(false);
   });
 });
