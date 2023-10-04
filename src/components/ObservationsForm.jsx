@@ -4,6 +4,8 @@ import ObservationInput from "./ObservationInput";
 import { mediScoreCalculation } from "../../medi-score/mediScore";
 import { AirOrOxygen, Consciousness } from "../../medi-score/Enums";
 import "./CustomCss.css";
+import { alertChecker } from "../../medi-score/alertChecker";
+import { mediScoreData } from "../../data/patientTestData";
 
 function ObservationsForm() {
   const [AODropDownTitle, setAODropDownTitle] = useState("Chose One Value");
@@ -16,6 +18,7 @@ function ObservationsForm() {
     temperature: "",
   });
   const [scoreOrMsg, setScoreOrMsg] = useState("");
+  const [aletMsg, setAlertMsg] = useState("");
 
   const handleDropDownChange = (e) => {
     if (e.target.value === "AIR") {
@@ -92,8 +95,16 @@ function ObservationsForm() {
     const result = mediScoreCalculation(patientObservations);
     setScoreOrMsg(result);
 
-    // Re-setting input fields values
     if (typeof result === "number") {
+      // Compare current score with last 24 hours
+      const isAlert = alertChecker(result, mediScoreData);
+      if (isAlert) {
+        setAlertMsg("This patient needs urgent attention!");
+      } else {
+        setAlertMsg("");
+      }
+
+      // Re-setting input fields values
       setPatientObservations({
         airOrOxygen: "",
         consciousness: "",
@@ -163,6 +174,9 @@ function ObservationsForm() {
         />
         <h1 className="text-center text-red-900 font-extrabold text-lg">
           {scoreOrMsg}
+        </h1>
+        <h1 className="text-center text-red-900 font-extrabold text-lg">
+          {aletMsg}
         </h1>
       </form>
     </div>
