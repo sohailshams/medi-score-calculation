@@ -23,6 +23,9 @@ export function getConsciousnessScore(consciousnessInput) {
 }
 
 export function getRespirationRangeScore(respirationRangeInput) {
+  // Check if respiration is a number
+  if (typeof respirationRangeInput != "number") return null;
+
   switch (true) {
     case respirationRangeInput <= 8:
       return 3;
@@ -40,6 +43,9 @@ export function getRespirationRangeScore(respirationRangeInput) {
 }
 
 export function getSpO2Score(spoScoreInput, airOrOxygenInput) {
+  // Check if spO2 is a number
+  if (typeof spoScoreInput != "number") return null;
+
   switch (true) {
     case spoScoreInput <= 83 ||
       (spoScoreInput >= 97 && airOrOxygenInput === AirOrOxygen.OXYGEN):
