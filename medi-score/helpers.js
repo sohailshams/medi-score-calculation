@@ -88,11 +88,3 @@ export function getTemperatureScore(temperatureScoreInput) {
       return null;
   }
 }
-
-// module.exports = {
-//   getAirOrOxygenScore,
-//   getConsciousnessScore,
-//   getRespirationRangeScore,
-//   getSpO2Score,
-//   getTemperatureScore,
-// };
