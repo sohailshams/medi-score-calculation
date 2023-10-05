@@ -20,7 +20,7 @@ describe("mediScoreCalculation test suite", () => {
     );
   });
 
-  // Patient 1 observations
+  // Patient 1 observations no alert
   it("mediScoreCalculation returns correct score for patient 1 observations", () => {
     // Create obervations object
     const observations = {
@@ -30,12 +30,13 @@ describe("mediScoreCalculation test suite", () => {
       spO2: 95,
       temperature: 37.1,
     };
-
-    expect(mediScoreCalculation(observations)).toBe(0);
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(0);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(false);
   });
 
-  // Patient 2 observations
-  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+  // Patient 2 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 2 observations", () => {
     // Create obervations object
     const observations = {
       airOrOxygen: AirOrOxygen.OXYGEN,
@@ -44,12 +45,13 @@ describe("mediScoreCalculation test suite", () => {
       spO2: 95,
       temperature: 37.1,
     };
-
-    expect(mediScoreCalculation(observations)).toBe(4);
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(4);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
   });
 
-  // Patient 3 observations
-  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+  // Patient 3 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 3 observations", () => {
     // Create obervations object
     const observations = {
       airOrOxygen: AirOrOxygen.OXYGEN,
@@ -58,12 +60,13 @@ describe("mediScoreCalculation test suite", () => {
       spO2: 88,
       temperature: 38.5,
     };
-
-    expect(mediScoreCalculation(observations)).toBe(8);
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(8);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
   });
 
-  // Patient 4 observations
-  it("mediScoreCalculation returns correct score for patient 1 observations", () => {
+  // Patient 4 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 4 observations", () => {
     // Create obervations object
     const observations = {
       airOrOxygen: AirOrOxygen.OXYGEN,
@@ -72,8 +75,60 @@ describe("mediScoreCalculation test suite", () => {
       spO2: 98,
       temperature: 35.0,
     };
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(14);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
+  });
 
-    expect(mediScoreCalculation(observations)).toBe(14);
+  // Patient 5 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 5 observations isFasting=false", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+      isFasting: false,
+      cbg: 7.9,
+    };
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(6);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
+  });
+
+  // Patient 6 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 6 observations isFasting=true", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.ALERT,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+      isFasting: true,
+      cbg: 7.9,
+    };
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(7);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
+  });
+
+  // Patient 7 observations also flag alert
+  it("mediScoreCalculation returns correct score for patient 7 observations and true for alert", () => {
+    // Create obervations object
+    const observations = {
+      airOrOxygen: AirOrOxygen.OXYGEN,
+      consciousness: Consciousness.CVPU,
+      respirationRange: 17,
+      spO2: 95,
+      temperature: 37.1,
+      isFasting: true,
+      cbg: 4.0,
+    };
+    const totalScore = mediScoreCalculation(observations);
+    expect(totalScore).toBe(7);
+    expect(alertChecker(totalScore, mediScoreData)).toBe(true);
   });
 });
 
