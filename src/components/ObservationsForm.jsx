@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ObservationDropdown from "./ObservationDropdown";
 import ObservationInput from "./ObservationInput";
 import { mediScoreCalculation } from "../../medi-score/mediScore";
@@ -6,19 +6,37 @@ import { AirOrOxygen, Consciousness } from "../../medi-score/Enums";
 import "./CustomCss.css";
 import { alertChecker } from "../../medi-score/alertChecker";
 import { mediScoreData } from "../../data/patientTestData";
+import ObservationCheckBox from "./ObservationCheckBox";
 
 function ObservationsForm() {
-  const [AODropDownTitle, setAODropDownTitle] = useState("Chose One Value");
-  const [ACDropDownTitle, setACDropDownTitle] = useState("Chose One Value");
+  const [AODropDownTitle, setAODropDownTitle] = useState("Choose One Value");
+  const [ACDropDownTitle, setACDropDownTitle] = useState("Choose One Value");
   const [patientObservations, setPatientObservations] = useState({
     airOrOxygen: "",
     consciousness: "",
     respirationRange: "",
     spO2: "",
     temperature: "",
+    isFasting: false,
+    cbg: "",
   });
   const [scoreOrMsg, setScoreOrMsg] = useState("");
   const [aletMsg, setAlertMsg] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (isChecked) {
+      setPatientObservations({
+        ...patientObservations,
+        ["isFasting"]: true,
+      });
+    } else {
+      setPatientObservations({
+        ...patientObservations,
+        isFasting: false,
+      });
+    }
+  }, [isChecked]);
 
   const handleDropDownChange = (e) => {
     if (e.target.value === "AIR") {
@@ -55,6 +73,13 @@ function ObservationsForm() {
     }
   };
 
+  // Update check box state
+  const handleCheckBoxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  // console.log("patientObservatons", patientObservations);
+
   const handleInputChange = (e) => {
     if (e.target.name === "respirationRange") {
       setPatientObservations({
@@ -69,6 +94,12 @@ function ObservationsForm() {
       });
     }
     if (e.target.name === "temperature") {
+      setPatientObservations({
+        ...patientObservations,
+        [e.target.name]: e.target.value,
+      });
+    }
+    if (e.target.name === "cbg") {
       setPatientObservations({
         ...patientObservations,
         [e.target.name]: e.target.value,
@@ -111,9 +142,12 @@ function ObservationsForm() {
         respirationRange: "",
         spO2: "",
         temperature: "",
+        isFasting: false,
+        cbg: "",
       });
-      setAODropDownTitle("Chose One Value");
-      setACDropDownTitle("Chose One Value");
+      setAODropDownTitle("Choose One Value");
+      setACDropDownTitle("Choose One Value");
+      setIsChecked(false);
     }
   };
 
@@ -144,27 +178,44 @@ function ObservationsForm() {
           inputType="number"
           name="respirationRange"
           placeholder="Respiration rate"
-          value={patientObservations.respirationRange}
+          value={patientObservations?.respirationRange}
           handleInputChange={handleInputChange}
-          id={"respirationRange"}
+          id="respirationRange"
         />
         <ObservationInput
           label="SpO2 (%):"
           inputType="number"
           name="spO2"
           placeholder="SpO2 (%)"
-          value={patientObservations.spO2}
+          value={patientObservations?.spO2}
           handleInputChange={handleInputChange}
-          id={"spO2"}
+          id="spO2"
         />
         <ObservationInput
           label="Temperature (°C):"
           inputType="number"
           name="temperature"
           placeholder="37.1"
-          value={patientObservations.temperature}
+          value={patientObservations?.temperature}
           handleInputChange={handleInputChange}
-          id={"temperature"}
+          id="temperature"
+        />
+        <ObservationCheckBox
+          label="Fasting:"
+          inputType="checkbox"
+          name="Fasting"
+          checked={isChecked}
+          handleCheckBoxChange={handleCheckBoxChange}
+          id="fasting"
+        />
+        <ObservationInput
+          label="CBG:"
+          inputType="number"
+          name="cbg"
+          placeholder="3.4 - tick if fasting "
+          value={patientObservations?.cbg}
+          handleInputChange={handleInputChange}
+          id="cbg"
         />
 
         <input

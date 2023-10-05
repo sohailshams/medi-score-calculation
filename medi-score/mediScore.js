@@ -4,6 +4,7 @@ import {
   getRespirationRangeScore,
   getSpO2Score,
   getTemperatureScore,
+  getCBGScore,
 } from "./helpers";
 
 export function mediScoreCalculation(observationsObject) {
@@ -27,10 +28,18 @@ export function mediScoreCalculation(observationsObject) {
   if (!isValidKeys) return "Please pass correct input!";
 
   let total = 0;
+  let cbgTotal = 0;
 
   // Destructuring observatoins properties
-  const { airOrOxygen, consciousness, respirationRange, spO2, temperature } =
-    observationsObject;
+  const {
+    airOrOxygen,
+    consciousness,
+    respirationRange,
+    spO2,
+    temperature,
+    isFasting,
+    cbg,
+  } = observationsObject;
 
   // Get air or oxygen score or return an error message
   const airOrOxygenScore = getAirOrOxygenScore(airOrOxygen);
@@ -55,13 +64,21 @@ export function mediScoreCalculation(observationsObject) {
   const temperatureScore = getTemperatureScore(temperature);
   if (temperatureScore === null) return "Please add correct temperature value";
 
+  // Get CBG score
+  const CBGScore = getCBGScore(isFasting, cbg);
+
+  // Update cbgTotal if getCBGScore returns a number
+  if (CBGScore != false) {
+    cbgTotal += CBGScore;
+  }
   // Final medi score
   total +=
     airOrOxygenScore +
     consciousnessScore +
     respirationRangeScore +
     spO2Score +
-    temperatureScore;
+    temperatureScore +
+    cbgTotal;
 
   return total;
 }
