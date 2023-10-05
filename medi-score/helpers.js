@@ -90,7 +90,7 @@ export function getTemperatureScore(temperatureScoreInput) {
 }
 
 export function getCBGScore(isFasting, CBGScoreInput) {
-  if (CBGScoreInput != "") {
+  if (CBGScoreInput !== "") {
     // Check if CBG is a number, if not do type conversion
     if (typeof CBGScoreInput != "number") {
       CBGScoreInput *= 1;
