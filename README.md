@@ -6,7 +6,7 @@
 
 ## Description
 
-The Medi Score Calculation is a simple function to calculate score of a patient based on patients' physiological measurements. These measurements are taken against following observations;
+The Medi Score Calculation is a simple function to calculate score of a patient based on patient's physiological measurements. These measurements are taken against following observations;
 
 1. Air / Oxygen saturation
 1. Alert / level of consciousness or
@@ -43,7 +43,7 @@ I followed test driven development approach and wrote comprehensive test scenari
 |           SpO2 (%)            |   ≤83   |  84–85  |   86–87   | 88–92 (or ≥93 on air) | 93–94 on oxygen | 95–96 on oxygen | ≥97 on oxygen |
 |       Temperature (°C)        |  ≤35.0  |         | 35.1–36.0 |       36.1–38.0       |    38.1–39.0    |      ≥39.1      |               |
 
-A part from testing individual helper functions I testes the **mediScoreCalculation** function with following input observations;
+Apart from testing individual helper functions I tested the **mediScoreCalculation** function with following input observations;
 
 #### Patient 1 - No alert
 
@@ -136,21 +136,22 @@ A part from testing individual helper functions I testes the **mediScoreCalculat
 
 ## Bonus Flagging an Alert
 
-To develop this function I created mock data which is an array and contains objects of medi score with time and id. I also assumed that this mock data is associdated to the current patient and this array contains data for only last 24 hours. This function is taking medi score and the test data array as parameters and compare the total medi score against the previous readings taken within 24 hours and if score raised by 2 in current reading, the function will return true and a message will be rendered.
+To develop this function I created mock data which is an array and contains objects of medi score with time and id. I also assumed that this mock data is associdated to the current patient and this array contains data for only last 24 hours. This function is taking medi score and the test data array as parameters and compare the total medi score against the previous readings taken within 24 hours and if the score is raised by 2 in the current reading, the function will return true and a message will be rendered.
 
 ## Bonus CBG
 
 **_Please note there is a typo in CBG (2 hours affter eating) first element as looking at others it appears that it should be 4.4 not 4.5._**
 To implement this functionality I added **_isFasting_** and **_cbg_** in the observations object. Since this functionality is implemented at the end so I created a seperated test suite for **_getCBGScore_** function.
-**Please note \***isFasting**_ and _**cbg**\* are optional fields**.
+**Please note isFasting and cbg are optional fields**.
 
 ## Front End
 
-A part from adding tests for the functions I also developed the front end so user can test the functionality manually. I developed the front end in [react js](https://react.dev/) and used [tailwindcss](https://tailwindcss.com/docs/position) for styling. Air / Oxygen and Alert / CVPU are dropdowns and other fields are simple input fields. In user tries to get score without passing any input then relevant message is rendered for user to assist and make corrections.
+Apart from adding tests for the functions I also developed the front end so user can test the functionality manually. I developed the front end in [react js](https://react.dev/) and used [tailwindcss](https://tailwindcss.com/docs/position) for styling. Air / Oxygen and Alert / CVPU are dropdowns and other fields are simple input fields. If user tries to get score without passing any input then relevant error message is rendered for user to assist and make corrections.
 
 ## Technologies Used
 
 - [Ract JS](https://react.dev/)
+- [Jest](https://jestjs.io/)
 - [Vite JS](https://vitejs.dev/)
   Vite is powerfull tool to create react app and and comes recommended by the [Ract docs](https://react.dev/learn/start-a-new-react-project#can-i-use-react-without-a-framework) which is why I am using it.
 - [Tailwindcss](https://tailwindcss.com/)
