@@ -2,6 +2,7 @@ import { mediScoreCalculation } from "../medi-score/mediScore";
 import { AirOrOxygen, Consciousness } from "../medi-score/Enums";
 import { alertChecker } from "../medi-score/alertChecker";
 import { mediScoreData } from "../data/patientTestData";
+import { getCBGScore } from "../medi-score/helpers";
 
 describe("mediScoreCalculation test suite", () => {
   it("returns a message if passed an empty object", () => {
@@ -596,6 +597,67 @@ describe("mediScoreCalculation - getTemperatureScore test suite", () => {
     };
     expect(mediScoreCalculation(observationsEqual391)).toBe(2);
     expect(mediScoreCalculation(observationsEqual40)).toBe(2);
+  });
+});
+
+describe("getCBGScore test suite", () => {
+  it("getCBGScore returns a false if passed an empty string - isFasting=false", () => {
+    expect(getCBGScore(false, "")).toBe(false);
+  });
+  it("getCBGScore returns a false if passed an empty string - isFasting=true", () => {
+    expect(getCBGScore(true, "")).toBe(false);
+  });
+  it("getCBGScore returns a null if passed input not converted to number - isFasting=false", () => {
+    expect(getCBGScore(false, "nonsense")).toBe(null);
+  });
+  it("getCBGScore returns a null if passed input not converted to number - isFasting=true", () => {
+    expect(getCBGScore(true, "nonsense")).toBe(null);
+  });
+  it("getCBGScore returns correct score if CBG observation is <=4.4 - isFasting=false", () => {
+    expect(getCBGScore(false, 4)).toBe(3);
+    expect(getCBGScore(false, 4.4)).toBe(3);
+  });
+  it("getCBGScore returns correct score if CBG observation is <=3.4 - isFasting=true", () => {
+    expect(getCBGScore(true, 3)).toBe(3);
+    expect(getCBGScore(true, 3.4)).toBe(3);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=4.5 and <=5.8 - isFasting=false", () => {
+    expect(getCBGScore(false, 4.5)).toBe(2);
+    expect(getCBGScore(false, 5)).toBe(2);
+    expect(getCBGScore(false, 5.8)).toBe(2);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=3.5 and <=3.9 - isFasting=true", () => {
+    expect(getCBGScore(true, 3.5)).toBe(2);
+    expect(getCBGScore(true, 3.7)).toBe(2);
+    expect(getCBGScore(true, 3.9)).toBe(2);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=5.9 and <=7.8 - isFasting=false", () => {
+    expect(getCBGScore(false, 5.9)).toBe(0);
+    expect(getCBGScore(false, 6.0)).toBe(0);
+    expect(getCBGScore(false, 7.8)).toBe(0);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=4.0 and <=5.4 - isFasting=true", () => {
+    expect(getCBGScore(true, 4.0)).toBe(0);
+    expect(getCBGScore(true, 5)).toBe(0);
+    expect(getCBGScore(true, 5.4)).toBe(0);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=7.9 and <=8.9 - isFasting=false", () => {
+    expect(getCBGScore(false, 7.9)).toBe(2);
+    expect(getCBGScore(false, 8.0)).toBe(2);
+    expect(getCBGScore(false, 8.9)).toBe(2);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=5.5 and <=5.9 - isFasting=true", () => {
+    expect(getCBGScore(true, 5.5)).toBe(2);
+    expect(getCBGScore(true, 5.7)).toBe(2);
+    expect(getCBGScore(true, 5.9)).toBe(2);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=9.0 - isFasting=false", () => {
+    expect(getCBGScore(false, 9.0)).toBe(3);
+    expect(getCBGScore(false, 9.5)).toBe(3);
+  });
+  it("getCBGScore returns correct score if CBG observation is >=6.0 - isFasting=true", () => {
+    expect(getCBGScore(true, 9.0)).toBe(3);
+    expect(getCBGScore(true, 9.5)).toBe(3);
   });
 });
 

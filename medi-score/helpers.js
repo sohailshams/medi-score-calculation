@@ -88,3 +88,38 @@ export function getTemperatureScore(temperatureScoreInput) {
       return null;
   }
 }
+
+export function getCBGScore(isFasting, CBGScoreInput) {
+  if (CBGScoreInput != "") {
+    // Check if CBG is a number, if not do type conversion
+    if (typeof CBGScoreInput != "number") {
+      CBGScoreInput *= 1;
+    }
+    // Check if CBG is a number
+    if (typeof CBGScoreInput != "number") return null;
+    // Rounded to a single decimal place
+    CBGScoreInput = CBGScoreInput.toFixed(1);
+
+    switch (true) {
+      case isFasting ? CBGScoreInput <= 3.4 : CBGScoreInput <= 4.4:
+        return 3;
+      case isFasting
+        ? CBGScoreInput >= 3.5 && CBGScoreInput <= 3.9
+        : CBGScoreInput >= 4.5 && CBGScoreInput <= 5.8:
+        return 2;
+      case isFasting
+        ? CBGScoreInput >= 4.0 && CBGScoreInput <= 5.4
+        : CBGScoreInput >= 5.9 && CBGScoreInput <= 7.8:
+        return 0;
+      case isFasting
+        ? CBGScoreInput >= 5.5 && CBGScoreInput <= 5.9
+        : CBGScoreInput >= 7.9 && CBGScoreInput <= 8.9:
+        return 2;
+      case isFasting ? CBGScoreInput >= 6.0 : CBGScoreInput >= 9.0:
+        return 3;
+      default:
+        return null;
+    }
+  }
+  return false;
+}
