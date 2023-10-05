@@ -1,7 +1,7 @@
 import { mediScoreCalculation } from "../medi-score/mediScore";
 import { AirOrOxygen, Consciousness } from "../medi-score/Enums";
 import { alertChecker } from "../medi-score/alertChecker";
-import { mediScoreData } from "../data/patientTestData";
+import { mediScoreData } from "../test-data/patientTestData";
 import { getCBGScore } from "../medi-score/helpers";
 
 describe("mediScoreCalculation test suite", () => {

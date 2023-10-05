@@ -5,7 +5,7 @@ import { mediScoreCalculation } from "../../medi-score/mediScore";
 import { AirOrOxygen, Consciousness } from "../../medi-score/Enums";
 import "./CustomCss.css";
 import { alertChecker } from "../../medi-score/alertChecker";
-import { mediScoreData } from "../../data/patientTestData";
+import { mediScoreData } from "../../test-data/patientTestData";
 import ObservationCheckBox from "./ObservationCheckBox";
 
 function ObservationsForm() {
