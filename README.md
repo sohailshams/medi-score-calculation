@@ -37,7 +37,7 @@ I followed test driven development approach and wrote comprehensive test scenari
 
 |           Property            | Score 3 | Score 2 |  Score 1  |        Score 0        |     Score 1     |     Score 2     |    Score 3    |
 | :---------------------------: | :-----: | :-----: | :-------: | :-------------------: | :-------------: | :-------------: | :-----------: |
-|      1112Air or oxygen?       |         | Oxygen  |           |          Air          |                 |                 |               |
+|        Air or oxygen?         |         | Oxygen  |           |          Air          |                 |                 |               |
 |         Consciousness         |         |         |           |         Alert         |                 |                 |     CVPU      |
 | Respiration rate (per minute) |   ≤8    |         |   9–11    |         12–20         |                 |      21–24      |               |
 |           SpO2 (%)            |   ≤83   |  84–85  |   86–87   | 88–92 (or ≥93 on air) | 93–94 on oxygen | 95–96 on oxygen | ≥97 on oxygen |
@@ -146,7 +146,11 @@ To implement this functionality I added **_isFasting_** and **_cbg_** in the obs
 
 ## Front End
 
-Apart from adding tests for the functions I also developed the front end so user can test the functionality manually. I developed the front end in [react js](https://react.dev/) and used [tailwindcss](https://tailwindcss.com/docs/position) for styling. Air / Oxygen and Alert / CVPU are dropdowns and other fields are simple input fields. If user tries to get score without passing any input then relevant error message is rendered for user to assist and make corrections.
+Apart from adding tests for the functions I also developed the front end so user can test the functionality manually. I developed the front end in [react js](https://react.dev/) and used [tailwindcss](https://tailwindcss.com/docs/position) for styling. Air / Oxygen and Alert / CVPU are dropdowns and other fields are simple input fields. If user tries to get score without passing any input then relevant error message is rendered for user to assist and make corrections. But Fasting check box and CBG input fields are optional. The final medi score, alert message and error messages are rendered under the **_Get Medi Score_** button.
+
+#### If/Else Statement- Switch Statement
+
+Since there were many conditions to check while getting the score of individual observations property, so decided to use switch statement over if/else statement. The reason is, it looks more clean and more efficient.
 
 ## Technologies Used
 
@@ -156,6 +160,7 @@ Apart from adding tests for the functions I also developed the front end so user
   Vite is powerfull tool to create react app and and comes recommended by the [Ract docs](https://react.dev/learn/start-a-new-react-project#can-i-use-react-without-a-framework) which is why I am using it.
 - [Tailwindcss](https://tailwindcss.com/)
   I used tailwindcss instead of raw css because using tailwindcss make less code to write and makes development quick.
+- [Netlify](https://www.netlify.com/) for deployment.
 
 ## Local Deployment
 
