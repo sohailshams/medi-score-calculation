@@ -40,7 +40,6 @@ function ObservationsForm() {
 
   const handleDropDownChange = (e) => {
     if (e.target.value === "AIR") {
-      //   setAODropDownValue(e.target.value);
       setPatientObservations({
         ...patientObservations,
         [e.target.name]: AirOrOxygen.AIR,
@@ -48,7 +47,6 @@ function ObservationsForm() {
       setAODropDownTitle(e.target.value);
     }
     if (e.target.value === "OXYGEN") {
-      //   setAODropDownValue(e.target.value);
       setPatientObservations({
         ...patientObservations,
         [e.target.name]: AirOrOxygen.OXYGEN,
@@ -56,7 +54,6 @@ function ObservationsForm() {
       setAODropDownTitle(e.target.value);
     }
     if (e.target.value === "ALERT") {
-      //   setACDropDownValue(e.target.value);
       setPatientObservations({
         ...patientObservations,
         [e.target.name]: Consciousness.ALERT,
@@ -64,7 +61,6 @@ function ObservationsForm() {
       setACDropDownTitle(e.target.value);
     }
     if (e.target.value === "CVPU") {
-      //   setACDropDownValue(e.target.value);
       setPatientObservations({
         ...patientObservations,
         [e.target.name]: Consciousness.CVPU,
@@ -77,8 +73,6 @@ function ObservationsForm() {
   const handleCheckBoxChange = () => {
     setIsChecked(!isChecked);
   };
-
-  // console.log("patientObservatons", patientObservations);
 
   const handleInputChange = (e) => {
     if (e.target.name === "respirationRange") {
